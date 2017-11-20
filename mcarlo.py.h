@@ -1,4 +1,10 @@
+BlumBlumShub blum;
+float twopi;
+
 main();
+
+float-array finalvalue(int hitrays,int firedrays,
+    float searchArea,float actual);
 
 float TheFunction(float x);
 int hitfunction(float rx,float ry);
