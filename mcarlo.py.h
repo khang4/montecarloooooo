@@ -1,7 +1,11 @@
 BlumBlumShub blum;
-float twopi;
+_rgener rgener;
 
-main();
+float _twopi;
+float _wolfamAnswer;
+float _searchSpace;
+
+void main();
 
 float-array finalvalue(int hitrays,int firedrays,
     float searchArea,float actual);
@@ -12,4 +16,4 @@ int hitfunction(float rx,float ry);
 float lcg(int a,int b,int s,int m);
 
 void otherrngtest();
-void piTest();
+void pitest();

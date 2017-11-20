@@ -1,21 +1,22 @@
 import blum;
 import math;
 import random;
+import rgeners;
 
 blumgen=blum.BlumBlumShub(128); #blum blum generator
+rgener=rgeners._rgener();
+
 _twopi=1/math.sqrt(2*math.pi); #the constant 1/sqrt(2pi)
 _wolfamAnswer=.99730020393673981094; #integral of The Function gotten from wolff fam
-_searchSpace=6*_twopi; #area to integrate in (-3->3,0->1/2pi)=(3+3)*1/2pi=6*1/2pi.
-                       #and by 1/2pi i mean whatever it's supposed to be
+_searchSpace=6*.4; #area to randomly monte-carlo in. -3->-3, 0->.4
 
 def main():
     hits=0;
     maxrays=10000;
     for x in range(maxrays):
-        rx=random.uniform(-3,3);
-        ry=random.uniform(0,_twopi);
+        rv=rgener.pyRandom();
 
-        if hitfunction(rx,ry):
+        if hitfunction(rv[0],rv[1]):
             hits+=1;
 
         fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
