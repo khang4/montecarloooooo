@@ -1,5 +1,6 @@
 import blum;
 import math;
+import random;
 
 blumgen=blum.BlumBlumShub(128); #blum blum generator
 _twopi=1/math.sqrt(2*math.pi); #the constant 1/sqrt(2pi)
@@ -8,7 +9,22 @@ _searchSpace=6*_twopi; #area to integrate in (-3->3,0->1/2pi)=(3+3)*1/2pi=6*1/2p
                        #and by 1/2pi i mean whatever it's supposed to be
 
 def main():
-    pass;
+    hits=0;
+    maxrays=10000;
+    for x in range(maxrays):
+        rx=random.uniform(-3,3);
+        ry=random.uniform(0,_twopi);
+
+        if hitfunction(rx,ry):
+            hits+=1;
+
+        fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
+
+        print('''{} {} {}'''.format(x,fv[0],fv[1]));
+
+# def integrate(iters):
+#     for x in range(iters):
+
 
 # give it number of hit rays, number of fired rays,
 # the search area, and the actual value
@@ -16,7 +32,7 @@ def main():
 # actual answer and approximated answer]
 def finalvalue(hitrays,firedrays,searchArea,actual):
     fv=(hitrays/firedrays)*searchArea;
-    return [fv,actual-fv];
+    return [fv,abs(actual-fv)];
 
 # give constants a,b,s (seed) and m (mod)
 # use constants that people say are good for a,b,m
@@ -30,6 +46,7 @@ def TheFunction(x):
     return _twopi*(math.e**(-((x**2)/2)));
 
 # give an x and y, tests if x and y are inside The Function
+# (1 for inside the function)
 def hitfunction(rx,ry):
     if ry<TheFunction(rx):
         return 1;

@@ -78,17 +78,17 @@ class BlumBlumShub(object):
 
         return result
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    bbs = BlumBlumShub(128);
+#     bbs = BlumBlumShub(128);
 
-    #print "Generating 10 numbers"
+#     #print "Generating 10 numbers"
 
-    print("type: u")
-    print("numbit: 32")
-    print("count: 5000000")
-    for i in range (5000000):
-        print(bbs.next(32))
+#     print("type: u")
+#     print("numbit: 32")
+#     print("count: 5000000")
+#     for i in range (5000000):
+#         print(bbs.next(32))
 
 
 
