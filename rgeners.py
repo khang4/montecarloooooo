@@ -18,7 +18,8 @@ class _rgener:
 
         self.blum=blum.BlumBlumShub(128);
 
-        self.lastLCG=[12,13];
+        self.lastLCG=[12,13]; #stores un scaled value of lcg for use in generating more numbers
+        self.returnLCG=[0,0]; #return value lcg
 
     # randomly generate with python's normal random Function
     # i believe it uses the twister method (maybe)
@@ -39,10 +40,13 @@ class _rgener:
     def lcgRandom(self):
         self.lastLCG[0]=self.lcg(1103515245,12345,self.lastLCG[0],(2**31)-1);
         self.lastLCG[1]=self.lcg(1103515245,12345,self.lastLCG[1],(2**31)-1);
-        print("{} {}".format(self.lastLCG[0],self.lastLCG[1]));
 
-        self.updateTracks(self.lastLCG,2);
-        return self.lastLCG;
+        rv=[((self.lastLCG[0]*6)/((2**31)-1))-3,(self.lastLCG[1]*.4)/((2**31)-1)];
+
+        print("{} {}".format(rv[0],rv[1]));
+
+        self.updateTracks(rv,2);
+        return rv;
 
     # give constants a,b,s (seed) and m (mod)
     # use constants that people say are good for a,b,m
