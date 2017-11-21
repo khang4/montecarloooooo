@@ -5,6 +5,7 @@
 
 import random;
 import math;
+import blum;
 
 class _rgener:
     def __init__(self):
@@ -15,12 +16,40 @@ class _rgener:
         self.variances=[[0,0],[0,0],[0,0]];
         self.sd=[[0,0],[0,0],[0,0]];
 
+        self.blum=blum.BlumBlumShub(128);
+
+        self.lastLCG=[12,13];
+
     # randomly generate with python's normal random Function
     # i believe it uses the twister method (maybe)
     def pyRandom(self):
         rv=[random.uniform(-3,3),random.uniform(0,.4)];
+        # print("{} {}".format(rv[0],rv[1]));
+
         self.updateTracks(rv,0);
         return rv;
+
+    def blumRandom(self):
+        rv=[-3+((self.blum.next(128)*6)/(2**128)),(self.blum.next(128)*.4)/(2**128)];
+        # print("{} {}".format(rv[0],rv[1]));
+
+        self.updateTracks(rv,1);
+        return rv;
+
+    def lcgRandom(self):
+        self.lastLCG[0]=self.lcg(1103515245,12345,self.lastLCG[0],(2**31)-1);
+        self.lastLCG[1]=self.lcg(1103515245,12345,self.lastLCG[1],(2**31)-1);
+        print("{} {}".format(self.lastLCG[0],self.lastLCG[1]));
+
+        self.updateTracks(self.lastLCG,2);
+        return self.lastLCG;
+
+    # give constants a,b,s (seed) and m (mod)
+    # use constants that people say are good for a,b,m
+    # use the last generated number as the seed for another
+    # random number
+    def lcg(self,a,b,s,m):
+        return ((a*s)+b)%m;
 
     # give generated x,y array value and
     # the generator index to update data for

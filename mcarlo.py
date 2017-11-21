@@ -1,9 +1,7 @@
-import blum;
 import math;
 import random;
 import rgeners;
 
-blumgen=blum.BlumBlumShub(128); #blum blum generator
 rgener=rgeners._rgener();
 
 _twopi=1/math.sqrt(2*math.pi); #the constant 1/sqrt(2pi)
@@ -14,18 +12,19 @@ def main():
     hits=0;
     maxrays=10000;
     for x in range(maxrays):
-        rv=rgener.pyRandom();
+        # rv=rgener.pyRandom();
+        # rv=rgener.blumRandom();
+        rv=rgener.lcgRandom();
 
         if hitfunction(rv[0],rv[1]):
             hits+=1;
 
         fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
 
-        print('''{} {} {}'''.format(x,fv[0],fv[1]));
+        # print('''{} {} {}'''.format(x,fv[0],fv[1]));
 
-# def integrate(iters):
-#     for x in range(iters):
-
+    # fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
+    # print(fv);
 
 # give it number of hit rays, number of fired rays,
 # the search area, and the actual value
@@ -34,13 +33,6 @@ def main():
 def finalvalue(hitrays,firedrays,searchArea,actual):
     fv=(hitrays/firedrays)*searchArea;
     return [fv,abs(actual-fv)];
-
-# give constants a,b,s (seed) and m (mod)
-# use constants that people say are good for a,b,m
-# use the last generated number as the seed for another
-# random number
-def lcg(a,b,s,m):
-    return ((a*s)+b)%m;
 
 # give an x, returns a y
 def TheFunction(x):
@@ -54,7 +46,7 @@ def hitfunction(rx,ry):
     return 0;
 
 def otherrngtest():
-    print(blumgen.next(4));
+    # print(blumgen.next(4));
 
     rnum=12;
     for x in range(12):
