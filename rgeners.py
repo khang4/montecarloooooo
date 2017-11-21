@@ -43,7 +43,7 @@ class _rgener:
 
         rv=[((self.lastLCG[0]*6)/((2**31)-1))-3,(self.lastLCG[1]*.4)/((2**31)-1)];
 
-        print("{} {}".format(rv[0],rv[1]));
+        # print("{} {}".format(rv[0],rv[1]));
 
         self.updateTracks(rv,2);
         return rv;
