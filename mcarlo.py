@@ -10,8 +10,9 @@ _searchSpace=6*.4; #area to randomly monte-carlo in. -3->-3, 0->.4
 
 def main():
     hits=0;
-    maxrays=10;
+    maxrays=100;
     raw=1;
+    generatorIndex=0; #0=python random,1=blumblum,2=lcg
 
     if not raw:
         print("{:>8} {:>10} {:>10} {:>10} {:>10} {:>12} {:>12} {:>10} {:>10}".format(
@@ -19,21 +20,25 @@ def main():
         ));
 
     for x in range(maxrays):
-        rv=rgener.pyRandom();
-        # rv=rgener.blumRandom();
-        # rv=rgener.lcgRandom();
+        if generatorIndex==0:
+            rv=rgener.pyRandom();
+
+        elif generatorIndex==1:
+            rv=rgener.blumRandom();
+
+        elif generatorIndex==2:
+            rv=rgener.lcgRandom();
 
         if hitfunction(rv[0],rv[1]):
             hits+=1;
 
         fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
-        rngStats=rgener.getStats(0);
+        rngStats=rgener.getStats(generatorIndex);
 
         mainPrint(x,fv[0],fv[1],rngStats[0],rngStats[1],rngStats[2],raw);
 
-    # fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
-    # print(fv);
-
+# give it the things it needs. mean, variance and sd need to be
+# x,y arrays from rgeners getStats(). use raw=1 to print raw
 def mainPrint(iter,answer,error,mean,variance,sd,raw=0):
     if not raw:
         print("{:8} {:10.6f} {:10.6f} {:10.6f} {:10.6f} {:12.6f} {:12.6f} {:10.6f} {:10.6f}".format(

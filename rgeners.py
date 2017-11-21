@@ -7,6 +7,10 @@ import random;
 import math;
 import blum;
 
+# generator indexes:
+# 0 python random
+# 1 blum blum
+# 2 lcg
 class _rgener:
     def __init__(self):
         self.datalength=[0,0,0];
