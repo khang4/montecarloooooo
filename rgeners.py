@@ -74,3 +74,8 @@ class _rgener:
 
         self.sd[gi][0]=math.sqrt(self.variances[gi][0]);
         self.sd[gi][1]=math.sqrt(self.variances[gi][1]);
+
+    # returns [mean,variances,standard dev] for specified generator index
+    # all stats are [x,y] arrays, as both values are tracked seperately
+    def getStats(self,generatorNo):
+        return [self.means[generatorNo],self.variances[generatorNo],self.sd[generatorNo]];

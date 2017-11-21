@@ -10,21 +10,40 @@ _searchSpace=6*.4; #area to randomly monte-carlo in. -3->-3, 0->.4
 
 def main():
     hits=0;
-    maxrays=10000;
+    maxrays=10;
+    raw=1;
+
+    if not raw:
+        print("{:>8} {:>10} {:>10} {:>10} {:>10} {:>12} {:>12} {:>10} {:>10}".format(
+            "iters","answer","error","mean x","mean y","variance x","variance y","sd x","sd y"
+        ));
+
     for x in range(maxrays):
-        # rv=rgener.pyRandom();
+        rv=rgener.pyRandom();
         # rv=rgener.blumRandom();
-        rv=rgener.lcgRandom();
+        # rv=rgener.lcgRandom();
 
         if hitfunction(rv[0],rv[1]):
             hits+=1;
 
         fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
+        rngStats=rgener.getStats(0);
 
-        # print('''{} {} {}'''.format(x,fv[0],fv[1]));
+        mainPrint(x,fv[0],fv[1],rngStats[0],rngStats[1],rngStats[2],raw);
 
     # fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
     # print(fv);
+
+def mainPrint(iter,answer,error,mean,variance,sd,raw=0):
+    if not raw:
+        print("{:8} {:10.6f} {:10.6f} {:10.6f} {:10.6f} {:12.6f} {:12.6f} {:10.6f} {:10.6f}".format(
+            iter,answer,error,mean[0],mean[1],variance[0],variance[1],sd[0],sd[1]
+        ));
+        return;
+
+    print("{} {} {} {} {} {} {} {} {}".format(
+        iter,answer,error,mean[0],mean[1],variance[0],variance[1],sd[0],sd[1]
+    ));
 
 # give it number of hit rays, number of fired rays,
 # the search area, and the actual value
