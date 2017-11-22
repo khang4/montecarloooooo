@@ -1,0 +1,17 @@
+mean x:
+plot "pyrandom-raw.txt" using 1:4 with lines,"blum-raw.txt" using 1:4 with lines,"lcg-raw.txt" using 1:4 with lines
+
+mean y:
+plot "pyrandom-raw.txt" using 1:5 with lines,"blum-raw.txt" using 1:5 with lines,"lcg-raw.txt" using 1:5 with lines
+
+variance x:
+plot "pyrandom-raw.txt" using 1:6 with lines,"blum-raw.txt" using 1:6 with lines,"lcg-raw.txt" using 1:6 with lines
+
+variance y:
+plot "pyrandom-raw.txt" using 1:7 with lines,"blum-raw.txt" using 1:7 with lines,"lcg-raw.txt" using 1:7 with lines
+
+standard dev x:
+plot "pyrandom-raw.txt" using 1:8 with lines,"blum-raw.txt" using 1:8 with lines,"lcg-raw.txt" using 1:8 with lines
+
+standard dev y:
+plot "pyrandom-raw.txt" using 1:9 with lines,"blum-raw.txt" using 1:9 with lines,"lcg-raw.txt" using 1:9 with lines

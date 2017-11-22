@@ -9,16 +9,17 @@ _wolfamAnswer=.99730020393673981094; #integral of The Function gotten from wolff
 _searchSpace=6*.4; #area to randomly monte-carlo in. -3->-3, 0->.4
 
 def main():
-    hits=0;
-    maxrays=100;
-    raw=1;
-    generatorIndex=0; #0=python random,1=blumblum,2=lcg
+    #configuration
+    maxrays=10000; #number of random points to shoot
+    raw=1; #output raw or no
+    generatorIndex=2; #choose generator to use: 0=python random,1=blumblum,2=lcg
 
     if not raw:
         print("{:>8} {:>10} {:>10} {:>10} {:>10} {:>12} {:>12} {:>10} {:>10}".format(
-            "iters","answer","error","mean x","mean y","variance x","variance y","sd x","sd y"
+            "iter","answer","error","mean x","mean y","variance x","variance y","sd x","sd y"
         ));
 
+    hits=0;
     for x in range(maxrays):
         if generatorIndex==0:
             rv=rgener.pyRandom();
@@ -35,14 +36,14 @@ def main():
         fv=finalvalue(hits,maxrays,_searchSpace,_wolfamAnswer);
         rngStats=rgener.getStats(generatorIndex);
 
-        mainPrint(x,fv[0],fv[1],rngStats[0],rngStats[1],rngStats[2],raw);
+        # mainPrint(x,fv[0],fv[1],rngStats[0],rngStats[1],rngStats[2],raw);
 
 # give it the things it needs. mean, variance and sd need to be
 # x,y arrays from rgeners getStats(). use raw=1 to print raw
 def mainPrint(iter,answer,error,mean,variance,sd,raw=0):
     if not raw:
         print("{:8} {:10.6f} {:10.6f} {:10.6f} {:10.6f} {:12.6f} {:12.6f} {:10.6f} {:10.6f}".format(
-            iter,answer,error,mean[0],mean[1],variance[0],variance[1],sd[0],sd[1]
+            iter+1,answer,error,mean[0],mean[1],variance[0],variance[1],sd[0],sd[1]
         ));
         return;
 
